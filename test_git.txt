@@ -1,1 +1,4 @@
-Hello Git,this is my first change.
+
+int main(){
+    std::cout<<"hello git"<<std::endl;
+}
