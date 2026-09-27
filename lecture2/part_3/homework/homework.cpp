@@ -12,6 +12,21 @@
 int main()
 {
     // TODO: 在这里完成你的代码
+    cv::Mat img = cv::imread("../assets/demo.jpg");
 
+    if(img.empty()){
+        std::cout<<"读取图片失败"<<std::endl;
+        return -1;
+    }
+    std::cout<<"读取照片成功"<<std::endl;
+    cv::Mat gray;
+    cv::cvtColor(img,gray,cv::COLOR_BGR2GRAY);
+    std::cout<<"转灰度成功"<<std::endl;
+    cv::imwrite("gray.jpg",gray);
+    std::cout<<"已保存gray.jpg"<<std::endl;
+    cv::circle(gray,cv::Point(300,200),40,cv::Scalar(255),3);
+    cv::imshow("homework",gray);
+    std::cout <<"按任意键退出"<<std::endl;
+    cv::waitKey(0);
     return 0;
 }
