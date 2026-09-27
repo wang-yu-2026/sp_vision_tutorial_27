@@ -57,7 +57,7 @@ Camera::Camera()
     MV_CC_SetEnumValue(handle_, "BalanceWhiteAuto", MV_BALANCEWHITE_AUTO_CONTINUOUS);
     MV_CC_SetEnumValue(handle_, "ExposureAuto", MV_EXPOSURE_AUTO_MODE_OFF);
     MV_CC_SetEnumValue(handle_, "GainAuto", MV_GAIN_MODE_OFF);
-    MV_CC_SetFloatValue(handle_, "ExposureTime", 10000);
+    MV_CC_SetFloatValue(handle_, "ExposureTime", 4000);
     MV_CC_SetFloatValue(handle_, "Gain", 20);
     MV_CC_SetFrameRate(handle_, 60);
 }
