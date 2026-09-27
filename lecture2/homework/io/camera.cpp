@@ -50,6 +50,7 @@ Camera::Camera()
     ret = MV_CC_OpenDevice(handle_);
     if(ret!=MV_OK){
         std::cerr<<"打开相机失败"<<std::endl;
+        MV_CC_DestroyHandle(handle_);
         handle_=nullptr;
         return;
     }
@@ -60,6 +61,8 @@ Camera::Camera()
     MV_CC_SetFloatValue(handle_, "ExposureTime", 4000);
     MV_CC_SetFloatValue(handle_, "Gain", 20);
     MV_CC_SetFrameRate(handle_, 60);
+
+    MV_CC_StartGrabbing(handle_);
 }
 
 Camera::~Camera(){
@@ -76,24 +79,17 @@ bool Camera::read(cv::Mat& img){
         return false;
     }
 
-    int ret=MV_CC_StartGrabbing(handle_);
-    if(ret!=MV_OK){
-        std::cerr<<"开始采集失败"<<std::endl;
-        return false;
-    }
-
     MV_FRAME_OUT raw;
     unsigned int nMsec=100;
-    ret = MV_CC_GetImageBuffer(handle_,&raw,nMsec);
+    int ret = MV_CC_GetImageBuffer(handle_,&raw,nMsec);
     if(ret!=MV_OK){
         std::cerr<<"获取图片失败"<<std::endl;
-        MV_CC_StopGrabbing(handle_);
         return false;
     }
 
     img=transfer(raw).clone();
 
     MV_CC_FreeImageBuffer(handle_,&raw);
-    MV_CC_StopGrabbing(handle_);
-    return true;
+
+    return !img.empty();
 }
