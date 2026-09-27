@@ -39,7 +39,7 @@ int main()
         for(const auto& tag:tags){
             tools::draw_points(img,tag.corners,{0,255,0},2);
             cv::circle(img,tag.center,5,{0,0,255},-1);
-           cv::putText(img,std::to_string(tag.id),tag.center,cv::FONT_HERSHEY_SIMPLEX,1.0,{0,255,255},2);
+            tools::draw_text(img, std::to_string(tag.id), tag.center, {0, 255, 255}, 2.0, 2);;
         }
         // 显示图像
         cv::resize(img,img,cv::Size(640,480));
